@@ -25,14 +25,15 @@ attr_reader :contacts
 
   def display(number)
     if number == "all"
-      @contacts.each do |contact|
-        contact
+      @contacts.map do |contact|
+        puts contact
       end
-    else @contacts.each do |contact|
+    elsif @contacts.map do |contact|
           if contact.id == number
             puts contact
           end
-      end
+        end
+    else puts "What's happening??"
     end
   end
 

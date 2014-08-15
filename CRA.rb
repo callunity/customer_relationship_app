@@ -17,6 +17,7 @@ attr_accessor :name
 # Main menu loop
   def main_menu
     while true
+      puts "\e[H\e[2J"
       print_main_menu
       input = gets.chomp.to_i
       return if input == 7
@@ -33,6 +34,7 @@ attr_accessor :name
     puts "[5] Display a contact's attribute"
     puts "[6] Delete a contact"
     puts "[7] Exit"
+    puts
     puts "Choose an option by entering a number:"
   end
 
@@ -44,7 +46,7 @@ attr_accessor :name
     when 2 
       modify_contact
     when 3 
-      # display_all_contacts
+      display_all_contacts
     when 4 
       display_one_contact
     when 5 then puts "Display a contact's attribute" ## replace with method
@@ -55,6 +57,7 @@ attr_accessor :name
 
 # Add a contact
   def add_contact
+    puts "\e[H\e[2J"
     puts "First Name"
       first_name = gets.chomp
       puts "Last Name"
@@ -66,27 +69,34 @@ attr_accessor :name
 
       contact = Contact.new(first_name, last_name, email, notes)
       @rolodex.add_contact(contact)
-      puts "Added to Rolodex: \n#{contact.contact_display}\n" 
+      puts
+      puts "Added to Rolodex: \n#{contact.to_s}\n" 
+      puts
   end
 
 # Modify a contact
   def modify_contact
-    while true ## fix end parameter of this loop? figure out order
+    # while true ## fix end parameter of this loop? figure out order
+      puts "\e[H\e[2J"
       puts "What is the ID of the contact you would like to modify?"
       contact_id = gets.chomp.to_i
       contact_to_modify = @rolodex.search(contact_id)
       modify_menu(contact_to_modify)
       modify_contact_action(contact_to_modify)
-      puts contact_to_modify.contact_display
-    end
+      puts contact_to_modify.to_s
+      return
+    # end
   end
 
   def modify_menu(contact)
-    puts "#{contact.contact_display}" ## works only for first contact added
+    puts
+    puts "#{contact.to_s}" 
+    puts
     puts "Would you like to modify this contact? (yes/no)"
     confirm = gets.chomp
     return unless confirm == "yes"
       ## send up to main menu if no
+    puts
     puts "Which attribute would you like to modify?"
     puts "[1] First name"
     puts "[2] Last name"
@@ -123,21 +133,21 @@ attr_accessor :name
     ## for this contact if desired
   end
 
-  # # Display all contacts —— does not yet work
-  # def display_all_contacts
-  #   display = []
-  #   display << @rolodex.display("all")
-  #   display.each { |contact| puts "#{contact.contact_display}"}
-  # end
-
-  # Display one contact
-  def display_one_contact
-    puts "What is the ID of the contact you would like to see?"
-    display_id = gets.chomp.to_i
-    contact_to_display = @rolodex.search(display_id)
-    puts "#{contact_to_display.contact_display}"
+# Display all contacts 
+  def display_all_contacts
+    puts "\e[H\e[2J"
+    @rolodex.display("all")
+    carriage_return = gets.chomp
   end
 
+# Display one contact  
+  def display_one_contact
+    puts "\e[H\e[2J"
+    puts "What is the ID of the contact you would like to see?"
+    display_id = gets.chomp.to_i
+    @rolodex.display(display_id)
+    carriage_return = gets.chomp
+  end
 
 end
 
