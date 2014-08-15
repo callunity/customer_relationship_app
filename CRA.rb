@@ -19,6 +19,7 @@ attr_accessor :name
     while true
       print_main_menu
       input = gets.chomp.to_i
+      return if input == 7
       call_option(input)
     end
   end
@@ -42,11 +43,12 @@ attr_accessor :name
       add_contact
     when 2 
       modify_contact
-    when 3 then puts "Display all contacts" ## replace with method
-    when 4 then puts "Display one contact" ## replace with method
+    when 3 
+      # display_all_contacts
+    when 4 
+      display_one_contact
     when 5 then puts "Display a contact's attribute" ## replace with method
     when 6 then puts "Delete a contact" ## replace with method
-    when 7 then return
     else puts "Sorry, that is not an option. Please choose from one of the options listed below:"
     end
   end
@@ -80,7 +82,7 @@ attr_accessor :name
   end
 
   def modify_menu(contact)
-    puts "#{contact.contact_display}" ## does it recognize it as instance of Contact?
+    puts "#{contact.contact_display}" ## works only for first contact added
     puts "Would you like to modify this contact? (yes/no)"
     confirm = gets.chomp
     return unless confirm == "yes"
@@ -121,12 +123,20 @@ attr_accessor :name
     ## for this contact if desired
   end
 
-  # Display all contacts
-  def display_all_contacts
-    (@rolodex.display("all")).contact_display
-  end
+  # # Display all contacts —— does not yet work
+  # def display_all_contacts
+  #   display = []
+  #   display << @rolodex.display("all")
+  #   display.each { |contact| puts "#{contact.contact_display}"}
+  # end
 
   # Display one contact
+  def display_one_contact
+    puts "What is the ID of the contact you would like to see?"
+    display_id = gets.chomp.to_i
+    contact_to_display = @rolodex.search(display_id)
+    puts "#{contact_to_display.contact_display}"
+  end
 
 
 end

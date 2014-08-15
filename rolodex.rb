@@ -17,8 +17,8 @@ attr_reader :contacts
     @contacts.each do |contact|
       if contact.id == query
         return contact
-      else return true
-        puts "Contact does not exist.\n"
+      else puts "Contact does not exist.\n"
+        return true
       end
     end
   end
@@ -26,7 +26,7 @@ attr_reader :contacts
   def display(number)
     if number == "all"
       @contacts.each do |contact|
-        puts contact
+        contact
       end
     else @contacts.each do |contact|
           if contact.id == number
@@ -43,9 +43,7 @@ end
 
 
 
-# contact_display broken: inverse order in CRA.rb/69
-# (ie. #{contact} \n Added to Rolodex:) and doesn't run 
-# at all in modify_contact/78
+# fix "return if" line in main_menu
 
 
 ## how do I "bump" out of a branch if a certain condition
