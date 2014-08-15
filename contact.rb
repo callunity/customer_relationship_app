@@ -7,4 +7,8 @@ class Contact
     @email = email
     @notes = notes
   end
+
+  def contact_display
+  	"Contact ID: #{@id} \n#{@first_name} \n#{@last_name} \n#{@email} \n#{@notes}"
+  end
 end

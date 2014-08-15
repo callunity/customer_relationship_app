@@ -1,5 +1,5 @@
-require_relative 'contact.rb'
-require_relative 'rolodex.rb'
+require_relative('contact.rb')
+require_relative('rolodex.rb')
 
 class CRM
 attr_accessor :name
@@ -41,14 +41,14 @@ attr_accessor :name
     case input
     when 1 
       add_contact
-    when 2 then puts "Modify a contact"
+    when 2 
+      modify_contact
     when 3 then puts "Display all contacts"
     when 4 then puts "Display one contact"
     when 5 then puts "Display a contact's attribute"
     when 6 then puts "Delete a contact"
     when 7 then puts "Exit"
-    else puts "Sorry, that is not an option. Please choose from one of the options listed below"
-      print_main_menu
+    else puts "Sorry, that is not an option. Please choose from one of the options listed below:"
     end
   end
 
@@ -66,11 +66,64 @@ attr_accessor :name
       contact = Contact.new(first_name, last_name, email, notes)
       @rolodex.add_contact(contact)
 
-      puts "Added #{contact.id} #{contact.first_name} #{contact.last_name} to Rolodex."
+      puts "Added to Rolodex: \n#{contact.contact_display}\n"
   end
+
+# Modify a contact
+  def modify_contact
+    while true
+      puts "What is the ID of the contact you would like to modify?"
+      contact_id = gets.chomp
+      contact_to_modify = @rolodex.search(contact_id)
+    # if false main_menu  ## don't want it to call self, so what?
+      modify_menu(contact_to_modify) ## display breaks here
+      contact_attr_to_modify = gets.chomp.to_i
+      modify_contact_action(contact_attr_to_modify)
+      puts contact_to_modify.contact_display
+    end
+  end
+
+  def modify_menu(contact)
+    puts "#{contact.contact_display}"
+    puts "Would you like to modify this contact? (yes/no)"
+    confirm = gets.chomp
+    return unless confirm == "yes"
+      
+   
+    puts "Which attribute would you like to modify?"
+    puts "[1] First name"
+    puts "[2] Last name"
+    puts "[3] Email"
+    puts "[4] Notes"
+    puts "[5] Exit"
+
+  end
+
+  def modify_contact_action(input)
+    case input
+    when 1
+      puts "Enter new first name"
+      new_first_name = gets.chomp
+      contact_to_modify.first_name = new_first_name
+    when 2
+      puts "Enter new last name"
+      new_last_name = gets.chomp
+      contact_to_modify.last_name = new_last_name
+    when 3
+      puts "Enter new email"
+      new_email = gets.chomp
+      contact_to_modify.email = new_email
+    when 4
+      puts "Enter new note"
+      new_notes = gets.chomp
+      contact_to_modify.notes = new_notes
+    when 5 
+      return
+    else puts "Sorry, that is not an option."
+    end
+  end
+
 end
 
 
 CRM.run('My CRM')     ## toggled with self.run method
-
-# As a user, if 'add' is typed, I am prompted to give my 'first name', 'last name', 

@@ -1,4 +1,5 @@
 class Rolodex
+attr_reader :contacts
 
   def initialize
 	  @contacts = []
@@ -11,4 +12,12 @@ class Rolodex
     @index += 1
     contact
   end
+
+  def search(query)
+    @contacts.each do |contact|
+      if contact.id == query
+        return contact
+      end
+  end
+end
 end
