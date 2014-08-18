@@ -71,6 +71,7 @@ attr_accessor :name
       @rolodex.add_contact(contact)
       puts
       puts "Added to Rolodex: \n#{contact.to_s}\n" 
+      carriage_return = gets.chomp
       puts
   end
 
@@ -81,21 +82,19 @@ attr_accessor :name
       puts "What is the ID of the contact you would like to modify?"
       contact_id = gets.chomp.to_i
       contact_to_modify = @rolodex.search(contact_id)
-      modify_menu(contact_to_modify)
-      modify_contact_action(contact_to_modify)
+      puts
+      puts "#{contact_to_modify.to_s}" 
+      puts "Would you like to modify this contact? (yes/no)"
+      confirm = gets.chomp
+      return unless confirm == "yes"
+      modify_menu
+      @rolodex.modify_contact(contact_to_modify)
+      puts ""
       puts contact_to_modify.to_s
-      return
-    # end
+      carriage_return = gets.chomp
   end
 
-  def modify_menu(contact)
-    puts
-    puts "#{contact.to_s}" 
-    puts
-    puts "Would you like to modify this contact? (yes/no)"
-    confirm = gets.chomp
-    return unless confirm == "yes"
-      ## send up to main menu if no
+  def modify_menu
     puts
     puts "Which attribute would you like to modify?"
     puts "[1] First name"
@@ -105,38 +104,10 @@ attr_accessor :name
     puts "[5] Exit"
   end
 
-  def modify_contact_action(contact)
-    contact_attr_to_modify = gets.chomp.to_i
-    case contact_attr_to_modify
-    when 1
-      puts "Enter new first name"
-      new_first_name = gets.chomp
-      contact.first_name = new_first_name
-      ## undefined local variable contact_to_modify 
-    when 2
-      puts "Enter new last name"
-      new_last_name = gets.chomp
-      contact.last_name = new_last_name
-    when 3
-      puts "Enter new email"
-      new_email = gets.chomp
-      contact.email = new_email
-    when 4
-      puts "Enter new note"
-      new_notes = gets.chomp
-      contact.notes = new_notes
-    when 5 
-      return
-    else puts "Sorry, that is not an option."
-    end
-    ## figure out how to loop back to enter more values 
-    ## for this contact if desired
-  end
-
 # Display all contacts 
   def display_all_contacts
     puts "\e[H\e[2J"
-    @rolodex.display("all")
+    @rolodex.display_all_contacts
     carriage_return = gets.chomp
   end
 
@@ -145,7 +116,7 @@ attr_accessor :name
     puts "\e[H\e[2J"
     puts "What is the ID of the contact you would like to see?"
     display_id = gets.chomp.to_i
-    @rolodex.display(display_id)
+    @rolodex.display_particular_contact(display_id)
     carriage_return = gets.chomp
   end
 
