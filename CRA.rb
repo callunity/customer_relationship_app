@@ -31,8 +31,8 @@ attr_accessor :name
     puts "[2] Modify a contact"
     puts "[3] Display all contacts"
     puts "[4] Display one contact"
-    # puts "[5] Sort contacts by attribute"
-    # puts "[6] Delete a contact"
+    # puts "[5] Display contacts by attribute"
+    puts "[6] Delete a contact"
     puts "[7] Exit"
     puts "[8] Search contacts"
     puts
@@ -53,7 +53,7 @@ attr_accessor :name
     when 5 
       sort_by
     when 6 
-      delete_one_contact ## not yet working
+      delete_one_contact 
     when 8
       search_all_contacts
     else puts "Sorry, that is not an option. Please choose from one of the options listed below:"
@@ -118,7 +118,7 @@ def sort_by
   puts "\e[H\e[2J"
   sort_menu
   sort_attribute = gets.chomp
-  @rolodex.sort_by_attribute(sort_attribute)
+  @rolodex.display_info_by_attribute(sort_attribute)
 
   carriage_return = gets.chomp
 end

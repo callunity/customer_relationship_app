@@ -44,27 +44,31 @@ attr_accessor :contacts
     end
   end
 
-  def sort_by_attribute(attribute)
+  def display_info_by_attribute(attribute) ## still not working
     case attribute
     when 1 
-      @contacts.sort do |contact| 
-        contact.id.each { |a, b| a <=> b } 
-      puts contact
-      end
+      sort_by_id = @contacts.sort_by(&:contact.id.each)
+      puts sort_by_id
     when 2
       @contacts.sort do |contact|
-        contact.id.each { |a, b| a <=> b }
+        contact.first_name.each { |a, b| a <=> b }
       puts contact.to_s
       end
     when 3
-      @contacts.last_name.sort { |a, b| a <=> b }
+      @contacts.sort do |contact|
+        contact.last_name.each { |a, b| a <=> b }
       puts contact.to_s
+      end
     when 4
-      @contacts.email.sort { |a, b| a <=> b }
+      @contacts.sort do |contact|
+        contact.email.each { |a, b| a <=> b }
       puts contact.to_s
+      end
     when 5
-      @contacts.notes.sort { |a, b| a <=> b }
+      @contacts.sort do |contact|
+        contact.notes.each { |a, b| a <=> b }
       puts contact.to_s
+      end
     else 
     end
   end
@@ -108,8 +112,17 @@ attr_accessor :contacts
     end
   end
 
-  def delete_contact(number) ## still not working ... 
-    @contacts.delete_if { |contact| contact.id == number }
+  def delete_contact(number) 
+    @contacts.map do |contact| 
+      if contact.id ==(number.to_i) 
+        puts "Are you sure you wish to delete \n#{contact.to_s} \n(yes/no)"
+        confirm = gets.chomp
+        return unless confirm == "yes"
+        @contacts.delete(contact)
+        puts "Deleted contact: \n#{contact.to_s}"
+      else 
+      end
+    end
   end
 
 end
