@@ -20,7 +20,7 @@ attr_accessor :name
       puts "\e[H\e[2J"
       print_main_menu
       input = gets.chomp.to_i
-      return if input == 7
+      return if input == 8
       call_option(input)
     end
   end
@@ -31,12 +31,11 @@ attr_accessor :name
     puts "[2] Modify a contact"
     puts "[3] Display all contacts"
     puts "[4] Display one contact"
-    # puts "[5] Display contacts by attribute"
+    puts "[5] Display contacts by attribute"
     puts "[6] Delete a contact"
-    puts "[7] Exit"
-    puts "[8] Search contacts"
-    puts
-    puts "Choose an option by entering a number:"
+    puts "[7] Search contacts"
+    puts "[8] Exit"
+    puts "\nChoose an option by entering a number:"
   end
 
 # Run main menu options
@@ -74,10 +73,8 @@ attr_accessor :name
 
       contact = Contact.new(first_name, last_name, email, notes)
       @rolodex.add_contact(contact)
-      puts
-      puts "Added to Rolodex: \n#{contact.to_s}\n" 
+      puts "\nAdded to Rolodex: \n#{contact.to_s}\n" 
       carriage_return = gets.chomp
-      puts
   end
 
 # Modify a contact
@@ -91,21 +88,18 @@ attr_accessor :name
         carriage_return = gets.chomp
         return
       end
-      puts ""
-      puts contact_to_modify.to_s ### breaking here
-      puts "Would you like to modify this contact? (yes/no)"
+      puts "\n#{contact_to_modify.to_s}" 
+      puts "\nWould you like to modify this contact? (yes/no)"
       confirm = gets.chomp
       return unless confirm == "yes"
       modify_menu
       @rolodex.modify_contact(contact_to_modify)
-      puts ""
-      puts contact_to_modify.to_s
+      puts "\n#{contact_to_modify.to_s}"
       carriage_return = gets.chomp
   end
 
   def modify_menu
-    puts
-    puts "Which attribute would you like to modify?"
+    puts "\nWhich attribute would you like to modify?"
     puts "[1] First name"
     puts "[2] Last name"
     puts "[3] Email"
@@ -113,13 +107,12 @@ attr_accessor :name
     puts "[5] Exit"
   end
 
-# Sort by attribute ## still not working
+# Display info by attribute 
 def sort_by
   puts "\e[H\e[2J"
   sort_menu
   sort_attribute = gets.chomp
   @rolodex.display_info_by_attribute(sort_attribute)
-
   carriage_return = gets.chomp
 end
 
@@ -150,7 +143,7 @@ end
   end
 
 
-# Delete one contact  ## still not working
+# Delete one contact  
   def delete_one_contact 
     puts "\e[H\e[2J"
     puts "What is the ID of the contact you would like to delete?"
@@ -162,9 +155,9 @@ end
 # Search all contacts ## next: use regex for non-exact matches
   def search_all_contacts 
     puts "\e[H\e[2J"
-    puts "Which contact would you like to display?"
+    puts "Which contact(s) would you like to display?"
     shower_id = gets.chomp
-    @rolodex.search_all(shower_id)
+    contacts_show = @rolodex.search_all(shower_id)
     carriage_return = gets.chomp
   end
 
