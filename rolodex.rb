@@ -1,5 +1,6 @@
 class Rolodex
-attr_reader :contacts
+attr_accessor :contacts
+
 
   def initialize
 	  @contacts = []
@@ -13,13 +14,58 @@ attr_reader :contacts
     contact
   end
 
-  def search(query)
+  def search(number)
     @contacts.select do |contact|
-      if contact.id == query
+      if contact.id == number
         return contact
-      else puts "Contact does not exist.\n"
-        return true
       end
+    end
+  end
+
+  def search_all(attribute) ## next: regex
+    @contacts.select do |contact|
+      if contact.id == attribute
+        puts contact.to_s
+        return contact
+      elsif contact.first_name == attribute
+        puts contact.to_s
+        return contact
+      elsif contact.last_name == attribute
+        puts contact.to_s
+        return contact
+      elsif contact.email == attribute
+        puts contact.to_s
+        return contact
+      elsif contact.notes == attribute
+        puts contact.to_s
+        return contact
+      else
+      end
+    end
+  end
+
+  def sort_by_attribute(attribute)
+    case attribute
+    when 1 
+      @contacts.sort do |contact| 
+        contact.id.each { |a, b| a <=> b } 
+      puts contact
+      end
+    when 2
+      @contacts.sort do |contact|
+        contact.id.each { |a, b| a <=> b }
+      puts contact.to_s
+      end
+    when 3
+      @contacts.last_name.sort { |a, b| a <=> b }
+      puts contact.to_s
+    when 4
+      @contacts.email.sort { |a, b| a <=> b }
+      puts contact.to_s
+    when 5
+      @contacts.notes.sort { |a, b| a <=> b }
+      puts contact.to_s
+    else 
     end
   end
 
@@ -62,16 +108,8 @@ attr_reader :contacts
     end
   end
 
+  def delete_contact(number) ## still not working ... 
+    @contacts.delete_if { |contact| contact.id == number }
+  end
+
 end
-
-
-
-
-
-
-# fix "return if" line in main_menu
-
-
-## how do I "bump" out of a branch if a certain condition
-## is met? (modify_menu if no — want to return 
-## to modify_contact)
