@@ -16,30 +16,23 @@ attr_accessor :contacts
 
   def search(number)
     @contacts.select do |contact|
-      if contact.id == number
-        return contact
-      end
+      return contact if contact.id == number
     end
   end
 
   def search_all(attribute) ## next: regex
     @contacts.select do |contact|
-      if contact.id == attribute
-        puts contact.to_s
-        return contact
+      if contact.id == attribute 
+        puts contact
       elsif contact.first_name == attribute
-        puts contact.to_s
-        return contact
+        puts contact
       elsif contact.last_name == attribute
-        puts contact.to_s
-        return contact
+        puts contact
       elsif contact.email == attribute
-        puts contact.to_s
-        return contact
+        puts contact
       elsif contact.notes == attribute
-        puts contact.to_s
-        return contact
-      else
+        puts contact
+      else puts "Attribute does not match any contacts."
       end
     end
   end
@@ -47,29 +40,31 @@ attr_accessor :contacts
   def display_info_by_attribute(attribute) ## still not working
     case attribute
     when 1 
-      sort_by_id = @contacts.sort_by(&:contact.id.each)
-      puts sort_by_id
+      @contacts.sort do |contact| 
+        contact.id.each { |a, b| a <=> b } 
+        puts contact
+      end
     when 2
-      @contacts.sort do |contact|
-        contact.first_name.each { |a, b| a <=> b }
-      puts contact.to_s
+      @contacts.sort do |contact| 
+        contact.first_name.each { |a, b| a <=> b } 
+        puts contact
       end
     when 3
-      @contacts.sort do |contact|
-        contact.last_name.each { |a, b| a <=> b }
-      puts contact.to_s
+      @contacts.sort do |contact| 
+        contact.last_name.each { |a, b| a <=> b } 
+        puts contact
       end
     when 4
-      @contacts.sort do |contact|
-        contact.email.each { |a, b| a <=> b }
-      puts contact.to_s
+      @contacts.sort do |contact| 
+        contact.email.each { |a, b| a <=> b } 
+        puts contact
       end
     when 5
-      @contacts.sort do |contact|
-        contact.notes.each { |a, b| a <=> b }
-      puts contact.to_s
+      @contacts.sort do |contact| 
+        contact.notes.each { |a, b| a <=> b } 
+        puts contact
       end
-    else 
+    else return
     end
   end
 
@@ -99,9 +94,9 @@ attr_accessor :contacts
     end
   end
 
-  def display_particular_contact(number)
+  def display_particular_contact(contact_id)
     @contacts.map do |contact|
-      puts contact if contact.id == number
+      puts contact if contact.id == contact_id
     end
   end
 
@@ -112,9 +107,9 @@ attr_accessor :contacts
     end
   end
 
-  def delete_contact(number) 
+  def delete_contact(contact_id) 
     @contacts.map do |contact| 
-      if contact.id ==(number.to_i) 
+      if contact.id ==(contact_id.to_i) 
         puts "Are you sure you wish to delete \n#{contact.to_s} \n(yes/no)"
         confirm = gets.chomp
         return unless confirm == "yes"

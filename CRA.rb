@@ -31,7 +31,7 @@ attr_accessor :name
     puts "[2] Modify a contact"
     puts "[3] Display all contacts"
     puts "[4] Display one contact"
-    # puts "[5] Display contacts by attribute"
+    puts "[5] Display contacts by attribute [may glitch]"
     puts "[6] Delete a contact"
     puts "[7] Exit"
     puts "[8] Search contacts"
@@ -119,7 +119,6 @@ def sort_by
   sort_menu
   sort_attribute = gets.chomp
   @rolodex.display_info_by_attribute(sort_attribute)
-
   carriage_return = gets.chomp
 end
 
@@ -162,9 +161,9 @@ end
 # Search all contacts ## next: use regex for non-exact matches
   def search_all_contacts 
     puts "\e[H\e[2J"
-    puts "Which contact would you like to display?"
+    puts "Which contact(s) would you like to display?"
     shower_id = gets.chomp
-    @rolodex.search_all(shower_id)
+    contacts_show = @rolodex.search_all(shower_id)
     carriage_return = gets.chomp
   end
 
