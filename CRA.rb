@@ -4,9 +4,9 @@ require_relative('rolodex.rb')
 class CRM
 attr_accessor :name
 
-  def self.run(name)     ## runs itself/all isntances of class
-    crm = CRM.new(name)  ## lets you run the program with one line
-    crm.main_menu        ## 
+  def self.run(name)     
+    crm = CRM.new(name)  
+    crm.main_menu        
   end
 
   def initialize(name)
